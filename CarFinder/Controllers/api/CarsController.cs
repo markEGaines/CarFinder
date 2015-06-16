@@ -64,26 +64,5 @@ namespace CarFinder.Controllers.api
         {
             return await db.GetYears();
         }
-
-        //[HttpPost]
-        //[Route("GetAllMakes")]
-        //public async Task<List<string>> GetAllMakes()
-        //{
-        //    return await db.GetAllMakes();
-        //}
-
-        //[HttpPost]
-        //[Route("GetAllModels")]
-        //public async Task<List<string>> GetAllModels()
-        //{
-        //    return await db.GetAllModels();
-        //}
-
-        //[HttpPost]
-        //[Route("GetAllTrims")]
-        //public async Task<List<string>> GetAllTrims()
-        //{
-        //    return await db.GetAllTrims();
-        //}
     }
 }

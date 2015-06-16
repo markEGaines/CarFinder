@@ -1,9 +1,223 @@
 ﻿<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+<head>
+    <!-- ==============================================
+    Title and Meta Tags
+    =============================================== -->
+    <meta charset="utf-8">
+    <title>Car Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- ==============================================
+    Favicons
+    =============================================== -->
+    <link rel="shortcut icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/apple-touch-icon-114x114.png">
+
+    <!-- ==============================================
+    CSS
+    =============================================== -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/flexslider.css">
+    <link rel="stylesheet" href="css/designr-theme-purple.css">
+
+
+    <!-- ==============================================
+    Fonts
+    =============================================== -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900' rel='stylesheet' type='text/css'>
+
+    <!-- ==============================================
+    JS
+    =============================================== -->
+    <!--[if lt IE 9]>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/libs/modernizr.min.js"></script>
+
+
+</head>
+
+<body data-spy="scroll" data-target="#main-nav" data-offset="200">
+
+    <!-- ==============================================
+    MAIN NAV
+    =============================================== -->
+    <div id="main-nav" class="navbar navbar-fixed-top">
+        <div class="container">
+
+            <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#site-nav">
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+
+                <!-- ======= LOGO ========-->
+                <a class="navbar-brand scrollto" href="#home">Car Finder<br><span>Angular Web API</span></a>
+                <!-- <a class="navbar-brand scrollto ir-logo" href="#">JOHN DOE<br><span>UI Designer</span></a> -->
+
+            </div>
+
+            <div id="site-nav" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="sr-only">
+                        <a href="#home" class="scrollto">Home</a>
+                    </li>
+                    <li >
+                        <a href="#home" class="scrollto">Home</a>
+                    </li>
+                    <li>
+                        <a href="#about" class="scrollto">About</a>
+                    </li>
+                    <li>
+                        <a href="#search" class="scrollto">Search</a>
+                    </li>
+                </ul>
+            </div><!--End navbar-collapse -->
+
+        </div><!--End container -->
+
+    </div><!--End main-nav -->
+    <!-- ==============================================
+    HEADER
+    =============================================== -->
+    <header id="home" class="jumbotron">
+        <div class="container">
+            <div class="message-box clearfix">
+                <div class="left-col" style="width:20%">
+                    <p>Find &nbsp;&nbsp;<br />Your: &nbsp;</p>
+                </div>
+                <div class="right-col flexslider home-slider">
+
+                    <ul class="slides">
+                        <li><p>German</p></li>
+                        <li><p>Flagship</p></li>
+                        <li><p>American</p></li>
+                        <li><p>Beast</p></li>
+                        <li><p>Italian</p></li>
+                        <li><p>MiniVan</p></li>
+                        <li><p>British</p></li>
+                        <li><p>Jalopy</p></li>
+                    </ul>
+                </div><!--End home-slider -->
+            </div><!--End message-box -->
+        </div><!--End container -->
+    </header><!--End header -->
+    <!-- ==============================================
+    ABOUT
+    =============================================== -->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-1 scrollimation fade-right">
+                    <p>This is CarFinder, an AngularJS Web API application.</p>
+                </div>
+            </div><!--End row -->
+        </div><!--End container -->
+    </section><!--End about section -->
+
+
+    <!-- ==============================================
+    search
+    =============================================== -->
+    <section id="search">
+        <div class="container" ng-app="app">
+            <div ng-controller="ctrl as c">
+                <div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            Year: {{c.selected.year}}<br />
+                            <select ng-options="year for year in c.options.years" ng-model="c.selected.year" ng-change="c.getMakes()"></select>
+                        </div>
+
+                        <div class="col-xs-3" ng-hide="showMake">
+                            Make: {{c.selected.make}}<br />
+                            <select ng-options="make for make in c.options.makes" ng-model="c.selected.make" ng-change="c.getModels()"></select>
+                        </div>
+
+                        <div class="col-xs-3" ng-hide="showModel">
+                            Model:{{c.selected.model}}<br />
+                            <select ng-options="model for model in c.options.models" ng-model="c.selected.model" ng-change="c.getTrims()"></select>
+                        </div>
+
+                        <div class="col-xs-3" ng-hide="showTrim">
+                            Trim:{{c.selected.trim}}
+                            <select ng-options="trim for trim in c.options.trims" ng-model="c.selected.trim"></select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    Year: {{c.selected.year}}<br />
+                    Make: {{c.selected.make}}<br />
+                    Model:{{c.selected.model}}<br />
+                    Trim:{{c.selected.trim}}
+                </div>
+            </div>
+        </div>
+
+
+    </section><!-- End contact section -->
+    <!-- ==============================================
+    FOOTER
+    =============================================== -->
+    <footer id="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 left-col">
+                    <h1 class="small-logo">Car Finder<br><span>Angular Web API</span></h1>
+                    <ul class="footer-nav">
+                        <li><a class="scrollto" href="#home">Home</a></li>
+                    </ul>
+                    <p>&copy;Copyright 2015 / All Rights Reserved</p>
+                </div>
+
+
+
+            </div><!-- End row -->
+
+        </div><!-- End container -->
+
+    </footer><!-- End footer -->
+    <!-- ==============================================
+    SCRIPTS
+    =============================================== -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.8.2.min.js">\x3C/script>')</script>
+
+
+    <script src="/Scripts/angular.min.js"></script>
+    <script src="/App/app.js"></script>
+    <script src="/App/service.js"></script>
+    <script src="/App/controller.js"></script>
+
+
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src='js/jquery.scrollto.js'></script>
+    <script src='js/jquery.flexslider.min.js'></script>
+    <script src='js/twitterFetcher_v10_min.js'></script>
+    <script src='js/jquery.masonry.min.js'></script>
+    <script src="js/waypoints.min.js"></script>
+    <script src="js/jquery.easypiechart.js"></script>
+    <script src="js/jquery.backstretch.min.js"></script>
+    <script src="js/contact.js"></script>
+    <script src="js/designr.js"></script>
+
+</body>
+
+</html>
+
+
+<!--<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
     <link href="/Content/bootstrap.min.css" rel="stylesheet" />
-    <!--<link href="/Content/css/font-awesome.min.css" rel="stylesheet" />-->
+    <link href="/Content//Content/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container" ng-app="app">
@@ -11,17 +225,25 @@
             <div>
                 <div class="row">
                     <div class="col-xs-3">
+                    Year: {{c.selected.year}}<br />
                         <select ng-options="year for year in c.options.years" ng-model="c.selected.year" ng-change="c.getMakes()"></select>
                     </div>
-                    <div class="col-xs-3">
+
+                    <div class="col-xs-3" ng-hide="showMake">
+                    Make: {{c.selected.make}}<br />
                         <select ng-options="make for make in c.options.makes" ng-model="c.selected.make" ng-change="c.getModels()"></select>
                     </div>
-                    <div class="col-xs-3">
+
+                    <div class="col-xs-3" ng-hide="showModel">
+                        Model:{{c.selected.model}}<br />
                         <select ng-options="model for model in c.options.models" ng-model="c.selected.model" ng-change="c.getTrims()"></select>
                     </div>
-                    <div class="col-xs-3">
+
+                    <div class="col-xs-3" ng-hide="showTrim">
+                        Trim:{{c.selected.trim}}
                         <select ng-options="trim for trim in c.options.trims" ng-model="c.selected.trim"></select>
                     </div>
+
                 </div>
             </div>
             <div class="row">
@@ -39,4 +261,4 @@
     <script src="/App/service.js"></script>
     <script src="/App/controller.js"></script>
 </body>
-</html>
+</html>-->
