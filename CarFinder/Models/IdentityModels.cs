@@ -56,18 +56,35 @@ namespace CarFinder.Models
             return await this.Database.SqlQuery<string>("GetTrims @year, @make, @model", yearParam, makeParam, modelParam).ToListAsync();
         }
 
-        public async Task<List<string>> GetCars(string year, string make, string model, string trim)
+        public async Task<List<Car>> GetCars(string year, string make, string model, string trim, string filter, bool paging, int page, int perPage)
         {
             var yearParam = new SqlParameter("@year", year);
             var makeParam = new SqlParameter("@make", make);
             var modelParam = new SqlParameter("@model", model);
             var trimParam = new SqlParameter("@trim", trim);
-            return await this.Database.SqlQuery<string>("GetCars @year @make @model @trim", yearParam, makeParam, modelParam, trimParam).ToListAsync();
+            var filterParam = new SqlParameter("@filter", filter);
+            var pagingParam = new SqlParameter("@paging", paging);
+            var pageParam = new SqlParameter("@page", page);
+            var perpageParam = new SqlParameter("@perPage", perPage);
+
+            return await this.Database.SqlQuery<Car>("GetCars @year, @make, @model, @trim, @filter, @paging, @page, @perPage", yearParam, makeParam, modelParam, trimParam, filterParam, pagingParam, pageParam, perpageParam).ToListAsync();
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        public async Task<int> GetCarsCount(string year, string make, string model, string trim, string filter)
+        {
+            var yearParam = new SqlParameter("@year", year);
+            var makeParam = new SqlParameter("@make", make);
+            var modelParam = new SqlParameter("@model", model);
+            var trimParam = new SqlParameter("@trim", trim);
+            var filterParam = new SqlParameter("@filter", filter);
+
+            return await this.Database.SqlQuery<int>("GetCarsCount @year, @make, @model, @trim, @filter", yearParam, makeParam, modelParam, trimParam, filterParam).FirstAsync();
+        
         }
     }
 }

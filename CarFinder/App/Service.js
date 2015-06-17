@@ -21,10 +21,27 @@
             return $http.post('/api/Cars/GetModels', selected).then(dataExtractor);
         }
 
-
         service.getTrims = function (selected) {
             return $http.post('/api/Cars/GetTrims', selected).then(dataExtractor);
-        }         
+        }
+
+        service.getCar = function (id) {
+            return $http.get('/api/Cars/GetCar', { params: { id: id } }).then(dataExtractor);
+        }
+
+        service.getCars = function (selected) {
+            var def = $q.defer();
+
+            var carCounts = $http.post('/api/Cars/GetCarsCount', selected).then(dataExtractor);
+            var cars = $http.post('/api/Cars/GetCars', selected).then(dataExtractor);
+
+            $q.all([carCounts, cars]).then(function (data) {
+                def.resolve({ carsCount: data[0], cars: data[1] });
+            });
+
+            return def.promise;
+        }
+
 
         return service;
 

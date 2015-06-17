@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/flexslider.css">
     <link rel="stylesheet" href="css/designr-theme-purple.css">
+    <link href="/Content/trNgGrid.min.css" rel="stylesheet" />
 
 
     <!-- ==============================================
@@ -67,7 +68,7 @@
                     <li class="sr-only">
                         <a href="#home" class="scrollto">Home</a>
                     </li>
-                    <li >
+                    <li>
                         <a href="#home" class="scrollto">Home</a>
                     </li>
                     <li>
@@ -119,14 +120,25 @@
             </div><!--End row -->
         </div><!--End container -->
     </section><!--End about section -->
-
-
     <!-- ==============================================
     search
     =============================================== -->
-    <section id="search">
+    <section id="search" style="background-color:white;">
         <div class="container" ng-app="app">
             <div ng-controller="ctrl as c">
+                <script type="text/ng-template" id="carModal.html">
+                    <div class="modal-header">
+                        <h3 class="modal-title">I'm a modal!</h3>
+                    </div>
+                    <div class="modal-body">
+
+                        Selected: <b>{{ cm.car }}</b>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" ng-click="cm.ok()">OK</button>
+                        <button class="btn btn-warning" ng-click="cm.cancel()">Cancel</button>
+                    </div>
+                </script>
                 <div>
                     <div class="row">
                         <div class="col-xs-3">
@@ -145,8 +157,8 @@
                         </div>
 
                         <div class="col-xs-3" ng-hide="showTrim">
-                            Trim:{{c.selected.trim}}
-                            <select ng-options="trim for trim in c.options.trims" ng-model="c.selected.trim"></select>
+                            Trim:{{c.selected.trim}}<br />
+                            <select ng-options="trim for trim in c.options.trims" ng-model="c.selected.trim" ng-change="c.getCars()"></select>
                         </div>
 
                     </div>
@@ -154,12 +166,45 @@
                 <div class="row">
                     Year: {{c.selected.year}}<br />
                     Make: {{c.selected.make}}<br />
-                    Model:{{c.selected.model}}<br />
-                    Trim:{{c.selected.trim}}
+                    Model: {{c.selected.model}}<br />
+                    Trim: {{c.selected.trim}}
+                </div>
+                <div style="background:#9661a8;color:#fff">
+                    <table tr-ng-grid="" on-data-required="c.getCars()" items='c.cars' page-items="c.selected.perPage" total-items="c.carsCount"
+                           filter-by="c.selected.filter" current-page="c.selected.page">
+                        <thead>
+                            <tr>
+                                <th field-name="Model_year" display-name="Year" display-align="center" enable-filtering="false"></th>
+                                <th field-name="Make" display-name="Make" display-align="center" enable-filtering="false"></th>
+                                <th field-name="Model_name" display-name="Model" display-align="center" enable-filtering="false"></th>
+                                <th field-name="Model_trim" display-name="Trim" display-align="center" enable-filtering="false"></th>
+                                <th field-name="Body_style" display-name="Body Style" display-align="center" enable-filtering="false"></th>
+                                <th field-name="Transmission_type" display-name="Transmission" display-align="center" enable-filtering="false"></th>
+                                <th field-name="Doors" display-name="Doors" display-align="center" enable-filtering="false"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-default" ng-click="c.open(gridItem.Id)">
+                                        Select {{gridDisplayItem.id}}
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
     </section><!-- End contact section -->
     <!-- ==============================================
@@ -175,14 +220,11 @@
                     </ul>
                     <p>&copy;Copyright 2015 / All Rights Reserved</p>
                 </div>
-
-
-
             </div><!-- End row -->
-
         </div><!-- End container -->
-
     </footer><!-- End footer -->
+
+
     <!-- ==============================================
     SCRIPTS
     =============================================== -->
@@ -191,10 +233,12 @@
 
 
     <script src="/Scripts/angular.min.js"></script>
+    <script src="/js/trNgGrid.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="/App/app.js"></script>
     <script src="/App/service.js"></script>
     <script src="/App/controller.js"></script>
-
 
     <script src="js/libs/bootstrap.min.js"></script>
     <script src='js/jquery.scrollto.js'></script>

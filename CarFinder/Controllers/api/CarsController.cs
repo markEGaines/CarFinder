@@ -19,6 +19,11 @@ namespace CarFinder.Controllers.api
             public string year;
             public string make;
             public string model;
+            public string trim;
+            public string filter;
+            public bool paging;
+            public int page;
+            public int perPage;
         }
 
         [HttpPost]
@@ -53,9 +58,24 @@ namespace CarFinder.Controllers.api
 
         [HttpPost]
         [Route("GetCars")]
-        public async Task<List<string>> GetCars(string year, string make, string model, string trim)
+        public async Task<List<Car>> GetCars(SelectedValues selected)
         {
-            return await db.GetCars(year, make, model, trim);
+            return await db.GetCars(selected.year, selected.make, selected.model, selected.trim, selected.filter, selected.paging, selected.page, selected.perPage);
+        }
+
+
+        [HttpPost]
+        [Route("GetCarsCount")]
+        public async Task<int> GetCarsCount(SelectedValues selected)
+        {
+            return await db.GetCarsCount(selected.year, selected.make, selected.model, selected.trim, selected.filter);
+        }
+
+        [HttpGet]
+        [Route("GetCar")]
+        public Car GetCar(int id)
+        {
+            return db.Cars.Find(id);
         }
 
         [HttpPost]
@@ -66,3 +86,5 @@ namespace CarFinder.Controllers.api
         }
     }
 }
+
+//        public async Task<List<string>> GetCars(string year, string make, string model, string trim,  string filter, string paging, string page, string perPage)
