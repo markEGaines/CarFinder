@@ -85,7 +85,7 @@
                 controller: 'carModalCtrl as cm',
                 size: 'lg',
                 resolve: {
-                    car: function () {
+                    carInfo: function () {
                         return svc.getCar(id);
                     }
                 }
@@ -101,11 +101,11 @@
 
     }]);
 
-    angular.module('app').controller('carModalCtrl', function ($modalInstance, car) {
+    angular.module('app').controller('carModalCtrl', function ($modalInstance, carInfo) {
 
         var scope = this;
-        
-        scope.car = car;
+        console.log(carInfo)
+        scope.carInfo = carInfo;
 
         scope.ok = function () {
             $modalInstance.close();

@@ -26,14 +26,17 @@
         }
 
         service.getCar = function (id) {
-            return $http.get('/api/Cars/GetCar', { params: { id: id } }).then(dataExtractor);
+            return $http.get('/api/Cars/GetCar', { params: { id: id } }).then(dataExtractor).then(function (data) {
+                data.recalls = JSON.parse(data.recalls);
+                return data;
+            });;
         }
 
         service.getCars = function (selected) {
             var def = $q.defer();
 
             var carCounts = $http.post('/api/Cars/GetCarsCount', selected).then(dataExtractor);
-            var cars = $http.post('/api/Cars/GetCars', selected).then(dataExtractor);
+            var cars = $http.post('/api/Cars/GetCars', selected).then(dataExtractor)
 
             $q.all([carCounts, cars]).then(function (data) {
                 def.resolve({ carsCount: data[0], cars: data[1] });

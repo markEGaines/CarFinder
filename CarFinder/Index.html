@@ -128,11 +128,41 @@
             <div ng-controller="ctrl as c">
                 <script type="text/ng-template" id="carModal.html">
                     <div class="modal-header">
-                        <h3 class="modal-title">I'm a modal!</h3>
+                        <h3 class="modal-title">
+                            {{cm.carInfo.car.Model_year}} &nbsp;&nbsp;
+                            {{cm.carInfo.car.Make}} &nbsp;&nbsp;
+                            {{cm.carInfo.car.Model_name}} &nbsp;&nbsp;
+                            {{cm.carInfo.car.Model_trim}}
+                        </h3>
                     </div>
                     <div class="modal-body">
-
-                        Selected: <b>{{ cm.car }}</b>
+                        <p><img ng-src="{{cm.carInfo.image}}" style="width:auto" height="300" /></p>
+                        <tabset>
+                            <tab heading="Stats">
+                                <row>
+                                    <!--<container>-->
+                                        <div class="col-xs-6">
+                                            <p>Year: &nbsp;{{cm.carInfo.car.Model_year}}</p>
+                                            <p>Make: &nbsp;{{cm.carInfo.car.Make}}</p>
+                                            <p>Model: &nbsp;{{cm.carInfo.car.Model_name}}</p>
+                                            <p>Trim: &nbsp;{{cm.carInfo.car.Model_trim}}</p>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <p>Body Style: &nbsp;{{cm.carInfo.car.Body_style}}</p>
+                                            <p>Transmission: &nbsp;{{cm.carInfo.car.Transmission_type}}</p>
+                                            <p>Doors: &nbsp;{{cm.carInfo.car.Doors}}</p>
+                                        </div>
+                                    <!--</container>-->
+                                </row>
+                            </tab>
+                            <tab heading="Recalls ({{cm.carInfo.recalls.Count}})">
+                                {{cm.carInfo.recalls}}
+                            </tab>
+                            <tab heading="CarInfo">
+                                {{cm.carInfo}}
+                            </tab>
+                        </tabset>
+                        
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" ng-click="cm.ok()">OK</button>
@@ -171,7 +201,7 @@
                 </div>
                 <div style="background:#9661a8;color:#fff">
                     <table tr-ng-grid="" on-data-required="c.getCars()" items='c.cars' page-items="c.selected.perPage" total-items="c.carsCount"
-                           filter-by="c.selected.filter" current-page="c.selected.page">
+                           filter-by="c.selected.filter" current-page="c.selected.page" selection-mode="none">
                         <thead>
                             <tr>
                                 <th field-name="Model_year" display-name="Year" display-align="center" enable-filtering="false"></th>
@@ -223,8 +253,6 @@
             </div><!-- End row -->
         </div><!-- End container -->
     </footer><!-- End footer -->
-
-
     <!-- ==============================================
     SCRIPTS
     =============================================== -->
